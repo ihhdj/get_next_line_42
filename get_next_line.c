@@ -6,7 +6,7 @@
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:23:47 by ihhadjal          #+#    #+#             */
-/*   Updated: 2024/11/24 15:38:28 by ihhadjal         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:09:35 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_extract(char *stash)
 	return (nouvelle_stash);
 }
 
-char	*ft_sauvegarde(char *stash)
+char	*ft_ligne(char *stash)
 {
 	char	*str;
 	int		i;
@@ -111,7 +111,7 @@ char	*get_next_line(int fd)
 	stash = ft_read(fd, stash);
 	if (!stash)
 		return (NULL);
-	line = ft_sauvegarde(stash);
+	line = ft_ligne(stash);
 	stash = ft_extract(stash);
 	if (line[0] == '\0')
 	{
