@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihhadjal <ihhadjal@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 16:23:47 by ihhadjal          #+#    #+#             */
-/*   Updated: 2024/11/25 09:42:07 by ihhadjal         ###   ########.fr       */
+/*   Created: 2024/11/24 18:07:39 by ihhadjal          #+#    #+#             */
+/*   Updated: 2024/11/25 10:05:41 by ihhadjal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_extract(char *stash)
 {
@@ -103,37 +103,21 @@ char	*ft_read(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stash = ft_read(fd, stash);
-	if (!stash)
+	stash[fd] = ft_read(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = ft_ligne(stash);
-	stash = ft_extract(stash);
+	line = ft_ligne(stash[fd]);
+	stash[fd] = ft_extract(stash[fd]);
 	if (line[0] == '\0')
 	{
-		free (stash);
+		free (stash[fd]);
 		free (line);
 		return (NULL);
 	}
 	return (line);
 }
-
-// #include <stdio.h>
-// int	main(void)
-// {
-// 	int	fd;
-// 	char *line;
-// 	fd = open("get_next_line.c", O_RDONLY);
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (line == NULL)
-// 			break;
-// 		printf("%s", line);
-// 		free (line);
-// 	}
-// }
